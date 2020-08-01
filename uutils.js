@@ -18,7 +18,19 @@ function UU(selector) {
                 }
                 throw Error("Property \"" + property + "\" doesn't exist");
             }
-        })
+        }),
+        ajax: (method, url, async) => {
+            const xhr = new XMLHttpRequest();
+            let response = ""; 
+            xhr.open(method, url, async);
+            xhr.onload = function (){
+                if(this.status === 200){
+                   response = JSON.parse(this.responseText);
+                };
+            }
+            xhr.send();
+            return response;
+        }
     };
     return self;
 }
