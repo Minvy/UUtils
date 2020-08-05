@@ -36,8 +36,27 @@ class UU {
                 }
                 xhr.send();
             },
+            delete:(url, callback) => {
+                xhr.open('DELETE', url, true);
+                xhr.onload = () => {
+                    if(xhr.status === 200){
+                        callback('Success: Object deleted');
+                    }else{
+                        callback('Error: ' + xhr.status);
+                    };
+                }
+                xhr.send();
+            },
             post:(url, data, callback) => {
                 xhr.open('POST', url, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = () => {
+                    console.log(xhr.responseText);
+                }
+                xhr.send(JSON.stringify(data));
+            },
+            put:(url, data, callback) => {
+                xhr.open('PUT', url, true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.onload = () => {
                     console.log(xhr.responseText);
