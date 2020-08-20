@@ -1,9 +1,22 @@
 class UU {
     static select(selector){
-        const element = document.querySelector(selector);
+        const element = document.querySelectorAll(selector);
         const options = {
+            html: () => {
+                return element;
+            },
             on: (event, callback) => {
                 element.addEventListener(event, callback);
+            },
+            hide: () => {
+                element.forEach((node) => {
+                    node.style.display = "none";
+                })
+            },
+            show: () => {
+                element.forEach((node) => {
+                    node.style.display = "";
+                })
             },
             style: new Proxy({}, {
                 get(target, property) {
@@ -22,6 +35,7 @@ class UU {
         };
         return options;
     }
+    //Can also read files
     static ajax = () => {
         const xhr = new XMLHttpRequest();
         const options = {
